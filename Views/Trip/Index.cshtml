@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Trip>
+@{
+    ViewBag.Title = "My Trip Log";
+    string message = ViewBag.Message;
+}
+
+<main class="container">
+    @if (!string.IsNullOrEmpty(message))
+    {
+        <div class="alert alert-secondary">
+            @message
+        </div>
+    }
+
+    <a asp-controller="Trip" asp-action="Add" class="btn btn-primary">Add a new trip</a>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Destination</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Accommodations</th>
+                <th>Things To Do</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var trip in Model)
+            {
+                <tr>
+                    <td>@trip.Destination</td>
+                    <td>@trip.StartDate.Date.ToShortDateString()</td>
+                    <td>@trip.EndDate.Date.ToShortDateString()</td>
+                    <td>@trip.AccomodationsStringBuilder()</td>
+                    <td>@trip.ThingsToDoStringBuilder()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</main>
+
